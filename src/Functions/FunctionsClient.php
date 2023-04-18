@@ -23,7 +23,6 @@ class FunctionsClient
         $this->headers = $headers ?? null;
     }
 
-
     public function __request($method, $url, $headers, $body = null): ResponseInterface
     {
         return Request::request($method, $url, $headers, $body);
@@ -32,11 +31,9 @@ class FunctionsClient
     public function invoke($functionName, $options = [])
     {
         try {
-
             $functionArgs = $options['body'];
             $method = $options['method'] ?? 'POST';
             //$this->headers = array_merge($this->headers, ['Content-Type' => 'application/json', 'noResolveJson' => true]);
-
 
             if (
                 (class_exists('Blob') && $functionArgs instanceof Blob) ||
@@ -46,11 +43,11 @@ class FunctionsClient
                 // also works for ArrayBuffer as it is the same underlying structure as a Blob
                 $this->headers['Content-Type'] = 'application/octet-stream';
                 $body = $functionArgs;
-            } else if (is_string($functionArgs)) {
+            } elseif (is_string($functionArgs)) {
                 // plain string
                 $this->headers['Content-Type'] = 'text/plain';
                 $body = $functionArgs;
-            } else if (class_exists('FormData') && $functionArgs instanceof FormData) {
+            } elseif (class_exists('FormData') && $functionArgs instanceof FormData) {
                 // don't set content-type headers
                 // Request will automatically add the right boundary value
                 $body = $functionArgs;
@@ -63,13 +60,13 @@ class FunctionsClient
             $url = "{$this->url}/{$functionName}";
             $headers = $this->headers;
             $response = $this->__request($method, $url, $headers, $body);
-            $responseType = (explode(';', $response->getHeader('content-type')[0] ?? 'text/plain')[0]);
+            $responseType = explode(';', $response->getHeader('content-type')[0] ?? 'text/plain')[0];
             $data = null;
             if ($responseType === 'application/json') {
                 $data = json_decode($response->getBody());
-            } else if ($responseType === 'application/octet-stream') {
+            } elseif ($responseType === 'application/octet-stream') {
                 $data = $response->getBody()->getContents();
-            } else if ($responseType === 'multipart/form-data') {
+            } elseif ($responseType === 'multipart/form-data') {
                 $data = $response->getBody()->getContents();
             } else {
                 // default to text
@@ -81,6 +78,7 @@ class FunctionsClient
             if (FunctionsError::isFunctionsError($e)) {
                 return ['data' => ['user' => null], 'error' => $e];
             }
+
             throw $e;
         }
     }

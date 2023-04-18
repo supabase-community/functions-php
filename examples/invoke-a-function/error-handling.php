@@ -14,6 +14,6 @@ $client = new FunctionsClient($reference_id, $api_key, [
 
 $response = $client->invoke('hello-world2', [
     'body'                => ['name'=>'Supabase'],
-    'headers' => ['my-custom-header'=>'my-custom-header-value']
+    'headers'             => ['my-custom-header'=>'my-custom-header-value'],
 ]);
 print_r($response);
