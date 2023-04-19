@@ -50,15 +50,15 @@ class FunctionsClient
     }
 
     /**
-	 * StorageBucket constructor.
-	 *
-	 * @param  string  $api_key  The anon or service role key
-	 * @param  string  $reference_id  Reference ID
-	 * @param  string  $domain  The domain pointing to api
-	 * @param  string  $scheme  The api sheme
-	 *
-	 * @throws Exception
-	 */
+     * StorageBucket constructor.
+     *
+     * @param string $api_key      The anon or service role key
+     * @param string $reference_id Reference ID
+     * @param string $domain       The domain pointing to api
+     * @param string $scheme       The api sheme
+     *
+     * @throws Exception
+     */
     public function __construct($reference_id, $api_key, $options = [], $domain = 'supabase.co', $scheme = 'https')
     {
         $headers = ['Authorization' => "Bearer {$api_key}", 'apikey' => $api_key];
@@ -77,15 +77,15 @@ class FunctionsClient
     }
 
     /**
-	 * Invoke a edge function.
-	 *
-	 * @param  string  $functionName  The name of the function.
-	 * @param  array  $options  The options for invoke a function.
-	 * @return array
-	 *
-	 * @throws Exception
-	 */
-    
+     * Invoke a edge function.
+     *
+     * @param string $functionName The name of the function.
+     * @param array  $options      The options for invoke a function.
+     *
+     * @throws Exception
+     *
+     * @return array
+     */
     public function invoke($functionName, $options = [])
     {
         try {
@@ -122,11 +122,13 @@ class FunctionsClient
             } else {
                 $data = $response->getBody()->getContents();
             }
+
             return ['data' => $data, 'error' => null];
         } catch (\Exception $e) {
             if (FunctionsError::isFunctionsError($e)) {
                 return ['data' => ['user' => null], 'error' => $e];
             }
+
             throw $e;
         }
     }
