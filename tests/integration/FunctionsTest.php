@@ -3,8 +3,8 @@
 declare(strict_types=1);
 require __DIR__.'/../../vendor/autoload.php';
 
-use Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
+use Supabase\Util\EnvSetup;
 
 final class FunctionsTest extends TestCase
 {
@@ -13,13 +13,10 @@ final class FunctionsTest extends TestCase
 	public function setup(): void
 	{
 		parent::setUp();
-		$dotenv = Dotenv::createUnsafeImmutable(__DIR__, '/../../.env.test');
-		$dotenv->load();
-		$api_key = getenv('API_KEY');
-		$reference_id = getenv('REFERENCE_ID');
-		$scheme = 'https';
-		$domain = 'functions.supabase.co';
-		$this->client = new  \Supabase\Functions\FunctionsClient($reference_id, $api_key, [], $domain, $scheme);
+		$keys = EnvSetup::env(__DIR__.'/../');
+		$api_key = $keys['API_KEY'];
+		$reference_id = $keys['REFERENCE_ID'];
+		$this->client = new  \Supabase\Functions\FunctionsClient($reference_id, $api_key);
 	}
 
 	/**
@@ -41,7 +38,7 @@ final class FunctionsTest extends TestCase
 	public function testInvoke(): void
 	{
 		$result = $this->client->invoke('hello-world', [
-			'body'                => ['name'=>'Supabase'],
+			'body' => ['name'=>'Supabase'],
 		]);
 		$this->assertNull($result['error']);
 		$this->assertArrayHasKey('data', $result);

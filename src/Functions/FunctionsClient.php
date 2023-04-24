@@ -53,7 +53,7 @@ class FunctionsClient
 	 *
 	 * @throws Exception
 	 */
-	public function __construct($reference_id, $api_key, $options = [], $domain = 'supabase.co', $scheme = 'https')
+	public function __construct($reference_id, $api_key, $domain = 'supabase.co', $scheme = 'https')
 	{
 		$headers = ['Authorization' => "Bearer {$api_key}", 'apikey' => $api_key];
 		$this->url = ! empty($reference_id) ? "{$scheme}://{$reference_id}.{$domain}" : "{$scheme}://{$domain}}";
@@ -81,6 +81,7 @@ class FunctionsClient
 	 */
 	public function invoke($functionName, $options = [])
 	{
+// @TODO - why do we not pass the body as param 2 and why is $options not well described
 		try {
 			$functionArgs = $options['body'];
 			$method = $options['method'] ?? 'POST';

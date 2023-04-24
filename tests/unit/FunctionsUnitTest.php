@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-class FunctionsTest extends TestCase
+class FunctionsUnitTest extends TestCase
 {
 	public function tearDown(): void
 	{
@@ -12,10 +12,7 @@ class FunctionsTest extends TestCase
 		\Mockery::close();
 	}
 
-	/**
-	 * Test the request parameters for call a function.
-	 */
-	public function testNewStorageFile()
+	public function testInvoke()
 	{
 		$mock = \Mockery::mock(
 			'Supabase\Functions\FunctionsClient[__request]',
@@ -23,7 +20,7 @@ class FunctionsTest extends TestCase
 		);
 
 		$mock->shouldReceive('__request')->withArgs(function ($scheme, $url, $headers) {
-			$this->assertEquals('GET', $scheme);
+			$this->assertEquals('POST', $scheme);
 			$this->assertEquals('https://mokerymock.functions.supabase.co/test-function', $url);
 			$this->assertEquals([
 				'X-Client-Info' => 'functions-php/0.0.1',
@@ -33,6 +30,8 @@ class FunctionsTest extends TestCase
 
 			return true;
 		});
-		$mock->invoke('test-function');
+		$mock->invoke('test-function', [
+			"body" => []
+		]);
 	}
 }
