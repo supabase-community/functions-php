@@ -1,7 +1,9 @@
 .phpunit.result.cache
+docs
 /vendor
 .env
 .env.backup
+.env.test
 phpunit.xml
 .phpdoc
 /.phpunit.cache/
