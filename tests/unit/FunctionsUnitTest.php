@@ -16,7 +16,7 @@ class FunctionsUnitTest extends TestCase
 	{
 		$mock = \Mockery::mock(
 			'Supabase\Functions\FunctionsClient[__request]',
-			['123123123', 'mokerymock']
+			['mokerymock', 'keyofallthekeys']
 		);
 
 		$mock->shouldReceive('__request')->withArgs(function ($scheme, $url, $headers) {

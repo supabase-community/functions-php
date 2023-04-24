@@ -13,7 +13,7 @@ use Supabase\Util\Request;
 class FunctionsClient
 {
 	/**
-	 * A RESTful endpoint for querying and managing your database.
+	 * Location to call the function endpoint.
 	 *
 	 * @var string
 	 */
@@ -44,10 +44,10 @@ class FunctionsClient
 	}
 
 	/**
-	 * StorageBucket constructor.
+	 * FunctionsClient constructor.
 	 *
-	 * @param  string  $api_key  The anon or service role key
 	 * @param  string  $reference_id  Reference ID
+	 * @param  string  $api_key  The anon or service role key
 	 * @param  string  $domain  The domain pointing to api
 	 * @param  string  $scheme  The api sheme
 	 *
@@ -56,11 +56,7 @@ class FunctionsClient
 	public function __construct($reference_id, $api_key, $domain = 'supabase.co', $scheme = 'https')
 	{
 		$headers = ['Authorization' => "Bearer {$api_key}", 'apikey' => $api_key];
-		$this->url = ! empty($reference_id) ? "{$scheme}://{$reference_id}.{$domain}" : "{$scheme}://{$domain}}";
-
-		if (! $this->url) {
-			throw new \Exception('No URL provided');
-		}
+		$this->url = "{$scheme}://{$reference_id}.functions.{$domain}";
 
 		$this->headers = $headers ?? null;
 	}
@@ -86,6 +82,7 @@ class FunctionsClient
 			$functionArgs = $options['body'];
 			$method = $options['method'] ?? 'POST';
 
+// @TODO - what in the world are we doing here!?
 			if (! is_array($functionArgs)) {
 				if (base64_decode($functionArgs, true) === false) {
 					$body = file_get_contents($functionArgs);
