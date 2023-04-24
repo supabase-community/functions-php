@@ -9,6 +9,6 @@ $domain = 'functions.supabase.co';
 $client = new FunctionsClient($reference_id, $api_key, [], $domain, $scheme);
 
 $response = $client->invoke('hello-world', [
-    'body'                => ['name'=>'Supabase'],
+	'body'                => ['name'=>'Supabase'],
 ]);
 print_r($response);

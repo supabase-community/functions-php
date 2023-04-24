@@ -7,13 +7,13 @@ $scheme = 'https';
 $domain = 'functions.supabase.co';
 
 $client = new FunctionsClient($reference_id, $api_key, [
-    'autoRefreshToken'   => false,
-    'persistSession'     => true,
-    'storageKey'         => $api_key,
+	'autoRefreshToken'   => false,
+	'persistSession'     => true,
+	'storageKey'         => $api_key,
 ], $domain, $scheme);
 
 $response = $client->invoke('hello-world', [
-    'body'                => ['name'=>'Supabase'],
-    'headers'             => ['my-custom-header'=>'my-custom-header-value'],
+	'body'                => ['name'=>'Supabase'],
+	'headers'             => ['my-custom-header'=>'my-custom-header-value'],
 ]);
 print_r($response);
