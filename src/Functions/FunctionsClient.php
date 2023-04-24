@@ -1,13 +1,7 @@
 <?php
 
 /**
- * A PHP  class  client library to interact with Supabase Functions.
- *
- * Provides functions for handling .
- *
- * @author    Zero Copy Labs
- * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * A PHP client library to interact with Supabase Edge Functions.
  */
 
 namespace Supabase\Functions;
