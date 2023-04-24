@@ -31,7 +31,7 @@ class FunctionsUnitTest extends TestCase
 			return true;
 		});
 		$mock->invoke('test-function', [
-			"body" => []
+			'body' => [],
 		]);
 	}
 }
