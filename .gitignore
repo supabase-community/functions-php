@@ -4,7 +4,6 @@ docs
 .env
 .env.backup
 .env.test
-phpunit.xml
 .phpdoc
 /.phpunit.cache/
 .vscode
