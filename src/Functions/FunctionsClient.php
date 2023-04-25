@@ -7,7 +7,6 @@
 namespace Supabase\Functions;
 
 use Psr\Http\Message\ResponseInterface;
-use Supabase\Util\FunctionsError;
 use Supabase\Util\Request;
 
 class FunctionsClient
@@ -71,7 +70,7 @@ class FunctionsClient
 	 *
 	 * @param  string  $functionName  The name of the function.
 	 * @param  array  $options  The options for invoke a function.
-	 * @return mixed 
+	 * @return mixed
 	 *
 	 * @throws Exception
 	 */
@@ -111,6 +110,7 @@ class FunctionsClient
 			} else {
 				$data = $body;
 			}
+
 			return $data;
 		} catch (\Exception $e) {
 			throw $e;
