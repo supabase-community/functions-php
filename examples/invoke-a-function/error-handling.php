@@ -5,7 +5,7 @@ use Supabase\Functions\FunctionsClient;
 
 $scheme = 'https';
 $domain = 'functions.supabase.co';
-
+// @TODO - what in the world??
 $client = new FunctionsClient($reference_id, $api_key, [
 	'autoRefreshToken'   => false,
 	'persistSession'     => true,
