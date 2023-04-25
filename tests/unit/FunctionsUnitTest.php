@@ -28,13 +28,15 @@ class FunctionsUnitTest extends TestCase
 			['mokerymock', 'keyofallthekeys']
 		);
 
-		$mock->shouldReceive('__request')->withArgs(function ($scheme, $url, $headers) {
+		$mock->shouldReceive('__request')->withArgs(function ($scheme, $url, $headers, $body) {
 			$this->assertEquals('POST', $scheme);
 			$this->assertEquals('https://mokerymock.functions.supabase.co/test-function', $url);
 			$this->assertEquals([
 				'Authorization' => 'Bearer keyofallthekeys',
 			//	'Content-Type'  => 'application/json',
 			], $headers);
+
+			$this->assertEquals('{"test":"thing"}', $body);
 
 			return true;
 		})
@@ -43,11 +45,10 @@ class FunctionsUnitTest extends TestCase
 			['Content-Type'  => 'application/json'],
 			'{"foo-bar": 12345}',	
 		));
-		$result = $mock->invoke('test-function', [
-			'body' => [
-				'test' => 'thing'
-			],
-		]);
+		$result = $mock->invoke(
+			'test-function', 
+			['test' => 'thing']
+		);
 
 		$this->assertEquals(12345, $result->{'foo-bar'});
 	}

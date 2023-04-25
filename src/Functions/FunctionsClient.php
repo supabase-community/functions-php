@@ -66,52 +66,67 @@ class FunctionsClient
 		return Request::request($method, $url, $headers, $body);
 	}
 
+	public function __prepareBody($body, $options): array
+	{
+
+		return [
+			'body' => $body,
+			'headers' => $headers,
+		];
+	}
+
+	public function __prepareResult($response): mixed 
+	{
+
+		return [
+			'body' => $body,
+			'headers' => $headers,
+		];
+	}
+
 	/**
 	 * Invoke a edge function.
 	 *
-	 * @param  string  $functionName  The name of the function.
-	 * @param  array  $options  The options for invoke a function.
-	 * @return mixed 
+	 * @param  string $functionName  The name of the function.
+	 * @param  mixed  $body          Body to send to the edge function.
+	 * @param  array  $options       The options for invoke a function.
+	 * @return mixed
 	 *
 	 * @throws Exception
 	 */
-	public function invoke($functionName, $options = []): mixed
+	public function invoke($functionName, $body = [], $options = []): mixed
 	{
 		// @TODO - why do we not pass the body as param 2 and why is $options not well described
 		try {
-			$functionArgs = $options['body'];
 			$method = $options['method'] ?? 'POST';
 
 			// @TODO - what in the world are we doing here!?
-			if (! is_array($functionArgs)) {
-				if (base64_decode($functionArgs, true) === false) {
-					$body = file_get_contents($functionArgs);
+			if (!is_array($body)) {
+				if (base64_decode($body, true) === false) {
+					$payload = file_get_contents($body);
 				} else {
-					$body = base64_decode($functionArgs);
+					$payload = base64_decode($body);
 				}
-			} elseif (is_string($functionArgs)) {
+			} elseif (is_string($body)) {
 				$this->headers['Content-Type'] = 'text/plain';
-				$body = $functionArgs;
-			} elseif (is_array($functionArgs)) {
-				$body = json_encode($functionArgs);
+				$payload = $body;
+			} elseif (is_array($body)) {
+				$payload = json_encode($body);
 			} else {
 				$this->headers['Content-Type'] = 'application/json';
-				$body = json_encode($functionArgs);
+				$payload = json_encode($body);
 			}
 
 			$url = "{$this->url}/{$functionName}";
 
 			// Send the request
-			$response = $this->__request($method, $url, $this->headers, $body);
+			$response = $this->__request($method, $url, $this->headers, $payload);
 			$responseType = explode(';', $response->getHeader('content-type')[0] ?? 'text/plain')[0];
-			$data = null;
-			$body = $response->getBody()->getContents();
+			$contents = $response->getBody()->getContents();
 			if ($responseType === 'application/json') {
-				$data = json_decode($body);
-			} else {
-				$data = $body;
-			}
-			return $data;
+				return json_decode($contents);
+			} 
+			return $contents;
 		} catch (\Exception $e) {
 			throw $e;
 		}

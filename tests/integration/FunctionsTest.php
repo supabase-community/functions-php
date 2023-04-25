@@ -16,18 +16,21 @@ final class FunctionsTest extends TestCase
 		$keys = EnvSetup::env(__DIR__.'/../');
 		$api_key = $keys['API_KEY'];
 		$reference_id = $keys['REFERENCE_ID'];
-		$this->client = new  \Supabase\Functions\FunctionsClient($reference_id, $api_key);
+		$this->client = new \Supabase\Functions\FunctionsClient($reference_id, $api_key);
 	}
 
 	/**
-	 * Test Invoke Invailid function.
+	 * Test Invoke Invalid function.
 	 *
 	 * @return void
 	 */
-	public function testInvokeInvalidIdFunction(): void
+	public function testInvokeInvalidFunction(): void
 	{
+		$this->expectException("\Supabase\Util\FunctionsApiError");
+		$this->expectExceptionCode(404);
+		$this->expectExceptionMessage("Function not found");		
+
 		$result = $this->client->invoke('not-real-function');
-		$this->assertInstanceOf('\\Supabase\\Util\\FunctionsApiError', $result);
 	}
 
 	/**
@@ -37,10 +40,10 @@ final class FunctionsTest extends TestCase
 	 */
 	public function testInvoke(): void
 	{
-		$result = $this->client->invoke('hello-world', [
-			'body' => ['name'=>'Supabase'],
-		]);
-		$this->assertNull($result['error']);
-		$this->assertArrayHasKey('data', $result);
+		$result = $this->client->invoke(
+			'hello-world',
+			['name'=>'Supabase'],
+		);
+		$this->assertSame('Hello Players!', $result->{'message'});
 	}
 }

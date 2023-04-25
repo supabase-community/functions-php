@@ -4,7 +4,6 @@ namespace Supabase\Util;
 
 class FunctionsApiError extends FunctionsError
 {
-	//protected string $code;
 	protected string $name;
 
 	public function __construct($code, $message)
