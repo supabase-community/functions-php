@@ -55,7 +55,7 @@ class FunctionsClient
 	 */
 	public function __construct($reference_id, $api_key, $domain = 'supabase.co', $scheme = 'https')
 	{
-		$headers = ['Authorization' => "Bearer {$api_key}", 'apikey' => $api_key];
+		$headers = ['Authorization' => "Bearer {$api_key}"];
 		$this->url = "{$scheme}://{$reference_id}.functions.{$domain}";
 
 		$this->headers = $headers ?? null;
@@ -71,11 +71,11 @@ class FunctionsClient
 	 *
 	 * @param  string  $functionName  The name of the function.
 	 * @param  array  $options  The options for invoke a function.
-	 * @return array
+	 * @return mixed 
 	 *
 	 * @throws Exception
 	 */
-	public function invoke($functionName, $options = [])
+	public function invoke($functionName, $options = []): mixed
 	{
 		// @TODO - why do we not pass the body as param 2 and why is $options not well described
 		try {
@@ -100,26 +100,19 @@ class FunctionsClient
 			}
 
 			$url = "{$this->url}/{$functionName}";
-			$headers = $this->headers;
-			$response = $this->__request($method, $url, $headers, $body);
+
+			// Send the request
+			$response = $this->__request($method, $url, $this->headers, $body);
 			$responseType = explode(';', $response->getHeader('content-type')[0] ?? 'text/plain')[0];
 			$data = null;
+			$body = $response->getBody()->getContents();
 			if ($responseType === 'application/json') {
-				$data = json_decode($response->getBody());
-			} elseif ($responseType === 'application/octet-stream') {
-				$data = $response->getBody()->getContents();
-			} elseif ($responseType === 'multipart/form-data') {
-				$data = $response->getBody()->getContents();
+				$data = json_decode($body);
 			} else {
-				$data = $response->getBody()->getContents();
+				$data = $body;
 			}
-
-			return ['data' => $data, 'error' => null];
+			return $data;
 		} catch (\Exception $e) {
-			if (FunctionsError::isFunctionsError($e)) {
-				return ['data' => ['user' => null], 'error' => $e];
-			}
-
 			throw $e;
 		}
 	}
