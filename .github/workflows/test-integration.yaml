@@ -5,8 +5,8 @@ on:
 
 jobs:
   phpunit:
-    runs-on: ${{ matrix.os }} 
-    continue-on-error: false 
+    runs-on: ${{ matrix.os }}
+    continue-on-error: false
 
     strategy:
       matrix:
@@ -26,7 +26,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install 
+        run: composer install
 
       - name: Run Intergation tests
         run: ./vendor/bin/phpunit --testsuite test-int
