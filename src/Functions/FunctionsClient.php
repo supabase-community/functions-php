@@ -21,7 +21,7 @@ class FunctionsClient
 	/**
 	 * Last response.
 	 *
-	 * @var ResponseInterface 
+	 * @var ResponseInterface
 	 */
 	protected mixed $lastResponse;
 
@@ -52,7 +52,7 @@ class FunctionsClient
 	/**
 	 * Get Last Response.
 	 */
-	public function __getLastResponse(): ResponseInterface 
+	public function __getLastResponse(): ResponseInterface
 	{
 		return $this->lastResponse;
 	}

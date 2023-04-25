@@ -65,7 +65,7 @@ final class FunctionsTest extends TestCase
 		$this->assertSame('ok', $result);
 		$this->assertSame([0 => '*'], $headers['Access-Control-Allow-Origin']);
 		$this->assertSame(
-			[0 => 'authorization, x-client-info, apikey'], 
+			[0 => 'authorization, x-client-info, apikey'],
 			$headers['access-control-allow-headers']
 		);
 
@@ -85,7 +85,7 @@ final class FunctionsTest extends TestCase
 		$this->assertSame([0 => 'text/plain'], $headers['Content-Type']);
 		$this->assertSame([0 => '*'], $headers['Access-Control-Allow-Origin']);
 		$this->assertSame(
-			[0 => 'authorization, x-client-info, apikey'], 
+			[0 => 'authorization, x-client-info, apikey'],
 			$headers['access-control-allow-headers']
 		);
 	}
