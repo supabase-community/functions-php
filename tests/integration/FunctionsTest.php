@@ -46,4 +46,47 @@ final class FunctionsTest extends TestCase
 		);
 		$this->assertSame('Hello Players!', $result->{'message'});
 	}
+
+	/**
+	 * Test for CORS OPTIONS.
+	 *
+	 * @return void
+	 */
+	public function testCorsOptions(): void
+	{
+		$result = $this->client->invoke(
+			'cors',
+			[],
+			['method'=>'OPTIONS'],
+		);
+
+		$resp = $this->client->__getLastResponse();
+		$headers = $resp->getHeaders();
+		$this->assertSame('ok', $result);
+		$this->assertSame([0 => '*'], $headers['Access-Control-Allow-Origin']);
+		$this->assertSame(
+			[0 => 'authorization, x-client-info, apikey'], 
+			$headers['access-control-allow-headers']
+		);
+
+		$result = $this->client->invoke(
+			'cors',
+			[],
+			['method'=>'OPTIONS'],
+		);
+
+		$result = $this->client->invoke(
+			'cors',
+		);
+
+		$resp = $this->client->__getLastResponse();
+		$headers = $resp->getHeaders();
+		$this->assertSame("all your base belong to us\n", $result);
+		$this->assertSame([0 => 'text/plain'], $headers['Content-Type']);
+		$this->assertSame([0 => '*'], $headers['Access-Control-Allow-Origin']);
+		$this->assertSame(
+			[0 => 'authorization, x-client-info, apikey'], 
+			$headers['access-control-allow-headers']
+		);
+	}
 }
