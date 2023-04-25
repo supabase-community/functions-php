@@ -46,7 +46,7 @@ class FunctionsUnitTest extends TestCase
 		));
 
 		$result = $mock->invoke(
-			'test-function', 
+			'test-function',
 			['test' => 'thing']
 		);
 

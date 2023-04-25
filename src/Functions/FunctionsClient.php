@@ -67,7 +67,7 @@ class FunctionsClient
 
 	public function __prepareBody($body, $options): array
 	{
-// @TODO - finish
+		// @TODO - finish
 
 		return [
 			'body' => $body,
@@ -75,9 +75,9 @@ class FunctionsClient
 		];
 	}
 
-	public function __prepareResult($response): mixed 
+	public function __prepareResult($response): mixed
 	{
-// @TODO - finish
+		// @TODO - finish
 
 		return [
 			'body' => $body,
@@ -88,9 +88,9 @@ class FunctionsClient
 	/**
 	 * Invoke a edge function.
 	 *
-	 * @param  string $functionName  The name of the function.
-	 * @param  mixed  $body          Body to send to the edge function.
-	 * @param  array  $options       The options for invoke a function.
+	 * @param  string  $functionName  The name of the function.
+	 * @param  mixed  $body  Body to send to the edge function.
+	 * @param  array  $options  The options for invoke a function.
 	 * @return mixed
 	 *
 	 * @throws Exception
@@ -102,7 +102,7 @@ class FunctionsClient
 			$method = $options['method'] ?? 'POST';
 
 			// @TODO - what in the world are we doing here!?
-			if (!is_array($body)) {
+			if (! is_array($body)) {
 				if (base64_decode($body, true) === false) {
 					$payload = file_get_contents($body);
 				} else {
@@ -126,7 +126,8 @@ class FunctionsClient
 			$contents = $response->getBody()->getContents();
 			if ($responseType === 'application/json') {
 				return json_decode($contents);
-			} 
+			}
+
 			return $contents;
 		} catch (\Exception $e) {
 			throw $e;
