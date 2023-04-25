@@ -28,7 +28,7 @@ final class FunctionsTest extends TestCase
 	{
 		$this->expectException("\Supabase\Util\FunctionsApiError");
 		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage("Function not found");		
+		$this->expectExceptionMessage('Function not found');
 
 		$result = $this->client->invoke('not-real-function');
 	}
