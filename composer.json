@@ -1,13 +1,13 @@
 {
     "name": "supabase/functions-php",
     "type": "library",
-    "description": "Supabase Functions for PHP",
+    "description": "Supabase Edge Functions for PHP",
     "keywords": ["supabase","functions", "functions-php"],
     "homepage": "https://github.com/supabase-community/functions-php",
     "autoload": {
         "psr-0": { "": "src/" },
         "psr-4": {
-            "Supabase\\Functions\\": "src/"
+            "Supabase\\": "src/"
         },
         "classmap": [
             "src/"
