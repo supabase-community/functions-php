@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 
 class FunctionsUnitTest extends TestCase
 {
@@ -33,7 +32,7 @@ class FunctionsUnitTest extends TestCase
 			$this->assertEquals('https://mokerymock.functions.supabase.co/test-function', $url);
 			$this->assertEquals([
 				'Authorization' => 'Bearer keyofallthekeys',
-			//	'Content-Type'  => 'application/json',
+				//	'Content-Type'  => 'application/json',
 			], $headers);
 
 			$this->assertEquals('{"test":"thing"}', $body);
@@ -43,8 +42,9 @@ class FunctionsUnitTest extends TestCase
 		->andReturn(new \GuzzleHttp\Psr7\Response(
 			200,
 			['Content-Type'  => 'application/json'],
-			'{"foo-bar": 12345}',	
+			'{"foo-bar": 12345}',
 		));
+
 		$result = $mock->invoke(
 			'test-function', 
 			['test' => 'thing']

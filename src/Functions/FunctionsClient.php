@@ -7,7 +7,6 @@
 namespace Supabase\Functions;
 
 use Psr\Http\Message\ResponseInterface;
-use Supabase\Util\FunctionsError;
 use Supabase\Util\Request;
 
 class FunctionsClient
@@ -68,6 +67,7 @@ class FunctionsClient
 
 	public function __prepareBody($body, $options): array
 	{
+// @TODO - finish
 
 		return [
 			'body' => $body,
@@ -77,6 +77,7 @@ class FunctionsClient
 
 	public function __prepareResult($response): mixed 
 	{
+// @TODO - finish
 
 		return [
 			'body' => $body,
