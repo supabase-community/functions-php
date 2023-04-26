@@ -7,6 +7,7 @@ PHP Client library to interact with Supabase Edge Functions.
 ### TODO
 
 - [ ] Support for PHP 7.4
+- [ ] Support for all Request / Response types
 
 
 ## Quick Start Guide
