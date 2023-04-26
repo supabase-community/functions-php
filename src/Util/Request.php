@@ -1,6 +1,6 @@
 <?php
 
-namespace Supabase\Util;
+namespace Supabase\Functions\Util;
 
 use Psr\Http\Message\ResponseInterface;
 

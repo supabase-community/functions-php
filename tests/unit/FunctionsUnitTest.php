@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Supabase\Functions\FunctionsClient;
 
 class FunctionsUnitTest extends TestCase
 {
@@ -14,7 +15,7 @@ class FunctionsUnitTest extends TestCase
 
 	public function testConstructor()
 	{
-		$client = new \Supabase\Functions\FunctionsClient('qweqrwsdfs', '1231322');
+		$client = new FunctionsClient('qweqrwsdfs', '1231322');
 
 		$this->assertEquals('https://qweqrwsdfs.functions.supabase.co', $client->__getUrl());
 		$this->assertEquals(['Authorization' => 'Bearer 1231322'], $client->__getHeaders());

@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 namespace Supabase\Util;
+=======
+namespace Supabase\Functions\Util;
+>>>>>>> grab-fixes
 
 class FunctionsError extends \Exception
 {

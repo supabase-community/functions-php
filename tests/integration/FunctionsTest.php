@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
-require __DIR__.'/../../vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use Supabase\Util\EnvSetup;
+use Supabase\Functions\FunctionsClient;
+use Supabase\Functions\Util\EnvSetup;
 
 final class FunctionsTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class FunctionsTest extends TestCase
 		$keys = EnvSetup::env(__DIR__.'/../');
 		$api_key = $keys['API_KEY'];
 		$reference_id = $keys['REFERENCE_ID'];
-		$this->client = new \Supabase\Functions\FunctionsClient($reference_id, $api_key);
+		$this->client = new FunctionsClient($reference_id, $api_key);
 	}
 
 	/**
@@ -26,7 +26,7 @@ final class FunctionsTest extends TestCase
 	 */
 	public function testInvokeInvalidFunction(): void
 	{
-		$this->expectException("\Supabase\Util\FunctionsApiError");
+		$this->expectException("Supabase\Functions\Util\FunctionsApiError");
 		$this->expectExceptionCode(404);
 		$this->expectExceptionMessage('Function not found');
 

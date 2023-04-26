@@ -7,15 +7,12 @@
     "autoload": {
         "psr-0": { "": "src/" },
         "psr-4": {
-            "Supabase\\": "src/"
-        },
-        "classmap": [
-            "src/"
-        ]
+            "Supabase\\Functions\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Supabase\\Test\\": "tests/"
+            "Supabase\\Functions\\Test\\": "tests/"
         }
     },
     "authors": [
