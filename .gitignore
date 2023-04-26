@@ -1,0 +1,12 @@
+.phpunit.result.cache
+docs
+/vendor
+.env
+.env.backup
+.env.test
+.phpdoc
+/.phpunit.cache/
+.vscode
+composer.lock
+package-lock.json
+node_modules
