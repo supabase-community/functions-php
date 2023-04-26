@@ -1,0 +1,45 @@
+{
+    "name": "supabase/functions-php",
+    "type": "library",
+    "description": "Supabase Edge Functions for PHP",
+    "keywords": ["supabase","functions", "functions-php"],
+    "homepage": "https://github.com/supabase-community/functions-php",
+    "autoload": {
+        "psr-0": { "": "src/" },
+        "psr-4": {
+            "Supabase\\Functions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Supabase\\Functions\\Test\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jordan",
+            "email": "jordan@ascensionengineer.com"
+        },
+        {
+            "name": "norm",
+            "email": "norm@zerocopylabs.com"
+        },
+        {
+            "name": "Adolfo",
+            "email": "adolfo@zerocopylabs.com"
+        },
+        {
+            "name": "Luis",
+            "email": "luis@zerocopylabs.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "9.6",
+        "mockery/mockery": "1.5",
+        "allure-framework/allure-phpunit": "1.5"
+    },
+    "require": {
+        "vlucas/phpdotenv": "5.5",
+        "guzzlehttp/guzzle": "7.5"
+    }
+}
