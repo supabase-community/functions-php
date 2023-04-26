@@ -21,7 +21,7 @@ composer require supabase/functions-php
 
 ```php
 
-use Supabase\Functions;
+use Supabase\Functions\FunctionsClient;
 
 $client = new FunctionsClient($reference_id, $api_key);
 $result = $client->invoke('hello-world');
