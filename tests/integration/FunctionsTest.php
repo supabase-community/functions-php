@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Supabase\Functions\FunctionsClient;
-use Supabase\Functions\Util\EnvSetup;
+use Supabase\Common\EnvSetup;
 
 final class FunctionsTest extends TestCase
 {
