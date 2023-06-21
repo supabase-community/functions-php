@@ -4,10 +4,11 @@
  * A PHP client library to interact with Supabase Edge Functions.
  */
 
-namespace Supabase\Functions;
+namespace Supabase\Util;
+
 
 use Psr\Http\Message\ResponseInterface;
-use Supabase\Util\Request;
+use Supabase\Functions\Util\Request;
 
 class FunctionsClient
 {
